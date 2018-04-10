@@ -7,6 +7,10 @@ var express = require('express'),
 	create = require('./routes/create.js'),
 	study = require('./routes/study.js'),
 	admin = require('./routes/admin.js');
+var redis   = require('redis');
+console.log("Connecting to the Redis Server");
+var client = redis.createClient(6379, 'serverIP', {});
+console.log(" Redis Server Connected ");
 
 var app = express();
 
