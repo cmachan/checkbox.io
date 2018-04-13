@@ -57,7 +57,22 @@ app.get('/api/study/status/:id', study.status );
 
 app.get('/api/study/listing', study.listing );
 
-app.post('/api/study/create', create.createStudy );
+app.post('/api/study/create', function(req,res)
+	{
+		try{
+			client.get("createFlag", function (err, value) {
+				if (value === "false") {
+					console.log("Create Study feature is disabled");
+					res.send({preview: "Create Study feature is disabled"})
+				} else {
+					create.createStudy 		
+				}
+			});
+
+		} catch(e){
+			res.send({ preview: e });
+		}
+	});
 app.post('/api/study/vote/submit/', cors(corsOptions), study.submitVote );
 
 //// ADMIN ROUTES
